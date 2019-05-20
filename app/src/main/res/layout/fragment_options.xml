@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFAFAFA">
+
+
+    <Button
+        android:id="@+id/btn_changeUserData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/fui_bgGoogle"
+        android:text="Редактировать профиль"
+        android:backgroundTint="#FF131215"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/btn_signOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#FFFAFAFA"
+        android:text="Выход из аккаунта"
+        android:backgroundTint="#FF131215"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/btn_dellUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/fui_bgGoogle"
+        android:backgroundTint="#FF131215"
+        android:text="Удалить аккаунт"
+        android:layout_gravity="center" />
+
+</LinearLayout>

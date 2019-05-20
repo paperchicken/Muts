@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff131215"
+    android:paddingLeft="0dip"
+    android:paddingTop="0dip"
+    android:paddingRight="0dip"
+    android:paddingBottom="0dip"
+    tools:context="com.example.mychat.ChatActivity">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/ic_right_arrow"
+        android:backgroundTint="#ff131215"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_right_arrow"
+        android:tint="@android:color/white"
+        app:backgroundTint="#fffafafa"
+        app:fabSize="normal" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@id/fab"
+        android:background="#fffafafa">
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@+id/id"
+            android:layout_alignTop="@+id/id"
+            android:layout_alignEnd="@+id/id"
+            android:layout_alignBottom="@+id/id"
+            android:background="#fffafafa"
+            android:hint="@string/chat_input_hint"
+            android:inputType="textAutoCorrect"
+            android:shadowColor="#ff131215"
+            android:textColor="#ff131215"
+            android:textColorHighlight="#ff131215"
+            android:textColorHint="#ff131215"
+            android:textColorLink="#ff131215" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/id"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="-2dp"
+        android:background="#ff131215" />
+
+</RelativeLayout>
