@@ -11,7 +11,7 @@
 
     <LinearLayout
 
-        android:id="@+id/feed_list_root"
+        android:id="@+id/list_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ff131215"
@@ -23,7 +23,7 @@
         android:textColor="@color/fui_bgGoogle">
 
         <TextView
-            android:id="@+id/feedId"
+            android:id="@+id/list_chatId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/fui_bgGitHub"
@@ -32,5 +32,15 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/list_last_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="@color/fui_bgGitHub"
+            android:text="Description"
+            android:textColor="@color/fui_bgGoogle" />
+
     </LinearLayout>
-    </android.support.v7.widget.CardView>
+
+</android.support.v7.widget.CardView>

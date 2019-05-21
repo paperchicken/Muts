@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_16sdp"
-    tools:context="com.ex.firebaselogin.LoginActivity">
+    tools:context="com.example.mychat.Login">
 
     <ImageView
         android:id="@+id/logo"
