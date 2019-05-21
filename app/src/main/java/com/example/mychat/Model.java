@@ -3,7 +3,7 @@ package com.example.mychat;
 public class Model {
     public String mId, mChatId, mLastMess;
 
-    public Model() {
+    public Model(String userName, String text) {
     }
 
     public Model(String mId, String mChatId, String mLastMess) {

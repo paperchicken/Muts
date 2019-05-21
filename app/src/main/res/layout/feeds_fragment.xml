@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewFeed"
         android:background="#fffafafa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,9 +19,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:id="@+id/btn_add_feed"
         android:src="@drawable/add"
         android:backgroundTint="#23CEC0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView" />
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewFeed" />
 
 </android.support.constraint.ConstraintLayout>

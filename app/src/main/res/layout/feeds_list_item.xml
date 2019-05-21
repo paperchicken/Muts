@@ -11,7 +11,7 @@
 
     <LinearLayout
 
-        android:id="@+id/list_root"
+        android:id="@+id/feed_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ff131215"
@@ -23,22 +23,22 @@
         android:textColor="@color/fui_bgGoogle">
 
         <TextView
-            android:id="@+id/list_chatId"
+            android:id="@+id/feed_userId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/fui_bgGitHub"
-            android:text="chatId"
-            android:textColor="#A0D5FF"
+            android:text="User"
+            android:textColor="#23CEC0"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/list_last_message"
+            android:id="@+id/feed_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:backgroundTint="@color/fui_bgGitHub"
-            android:text="Description"
+            android:text="Text"
             android:textColor="@color/fui_bgGoogle" />
 
     </LinearLayout>
