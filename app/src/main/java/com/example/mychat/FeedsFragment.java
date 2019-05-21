@@ -105,7 +105,7 @@ public class FeedsFragment extends Fragment {
             @Override
             public FeedsFragment.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.chat_list_item, parent, false);
+                        .inflate(R.layout.feeds_list_item, parent, false);
                 view.setClipToOutline(true);
                 return new ViewHolder(view);
             }
@@ -116,13 +116,16 @@ public class FeedsFragment extends Fragment {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout feed_root;
-        public TextView feed_userId;
+        public TextView feed_userName;
         public TextView feed_text;
 
         public ViewHolder(View itemView) {
             super(itemView);
             feed_root = itemView.findViewById(R.id.feed_root);
-            feed_userId = itemView.findViewById(R.id.feed_userId);
+            feed_userName = itemView.findViewById(R.id.feed_userId);
+            String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            feed_userName.setText(userName);
+
             feed_text = itemView.findViewById(R.id.feed_text);
         }
     }
