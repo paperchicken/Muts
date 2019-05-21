@@ -52,10 +52,7 @@ public class FeedsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("feedList")
-                        .child(FirebaseAuth
-                                .getInstance()
-                                .getCurrentUser()
-                                .getUid()).push();
+                      .push();
                 Map<String, Object> map = new HashMap<>();
                 map.put("UserName", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                 map.put("text", "Text");
@@ -76,29 +73,27 @@ public class FeedsFragment extends Fragment {
     private void fetch() {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child("feedList")
-                .child(FirebaseAuth
-                        .getInstance()
-                        .getCurrentUser()
-                        .getUid());
-        FirebaseRecyclerOptions<Model> options =
-                new FirebaseRecyclerOptions.Builder<Model>()
-                        .setQuery(query, new SnapshotParser<Model>() {
+                .child("feedList");
+
+        FirebaseRecyclerOptions<Post> options =
+                new FirebaseRecyclerOptions.Builder<Post>()
+                        .setQuery(query, new SnapshotParser<Post>() {
                             @NonNull
                             @Override
-                            public Model parseSnapshot(@NonNull DataSnapshot snapshot) {
+                            public Post parseSnapshot(@NonNull DataSnapshot snapshot) {
                                 Log.wtf("tag", "displayFeed1: " +snapshot.getRef().toString());
 
-                                return new Model(
+                                return new Post(
                                         snapshot.child("UserName").getValue().toString(),
                                         snapshot.child("text").getValue().toString());
                             }
                         })
                         .build();
-        adapter = new FirebaseRecyclerAdapter<Model, FeedsFragment.ViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<Post, FeedsFragment.ViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Model model) {
-
+            protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Post post) {
+                holder.feed_userName.setText(post.getpUserName());
+                holder.feed_text.setText(post.getpText());
             }
 
             @NonNull
@@ -123,8 +118,7 @@ public class FeedsFragment extends Fragment {
             super(itemView);
             feed_root = itemView.findViewById(R.id.feed_root);
             feed_userName = itemView.findViewById(R.id.feed_userId);
-            String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-            feed_userName.setText(userName);
+
 
             feed_text = itemView.findViewById(R.id.feed_text);
         }

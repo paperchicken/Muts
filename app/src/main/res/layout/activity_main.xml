@@ -11,7 +11,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        app:title="Чаты"
+        app:title=""
         android:gravity="center"
         app:titleTextColor="#FF131216"
         android:layout_width="match_parent"
