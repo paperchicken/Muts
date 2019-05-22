@@ -1,5 +1,7 @@
 package com.example.mychat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,13 +54,33 @@ public class FeedsFragment extends Fragment {
         addFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("feedList")
-                      .push();
-                Map<String, Object> map = new HashMap<>();
-                map.put("UserName", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                map.put("text", "Text");
-
-                databaseReference.setValue(map);
+                LayoutInflater li = LayoutInflater.from(getContext());
+                View promptsView = li.inflate(R.layout.dialog, null);
+                AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(getContext());
+                mDialogBuilder.setView(promptsView);
+                final EditText userInput = promptsView.findViewById(R.id.input_text);
+                mDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("Oк",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        //final_text.setText(userInput.getText());
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("feedList")
+                                                .push();
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("UserName", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                                        map.put("text", userInput.getText().toString());
+                                        databaseReference.setValue(map);
+                                    }
+                                })
+                        .setNegativeButton("Отмена",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alertDialog = mDialogBuilder.create();
+                alertDialog.show();
             }
         });
         /*FirebaseRecyclerAdapter fra = new FirebaseRecyclerAdapter() {
@@ -118,8 +141,6 @@ public class FeedsFragment extends Fragment {
             super(itemView);
             feed_root = itemView.findViewById(R.id.feed_root);
             feed_userName = itemView.findViewById(R.id.feed_userId);
-
-
             feed_text = itemView.findViewById(R.id.feed_text);
         }
     }
