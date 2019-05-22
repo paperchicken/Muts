@@ -12,9 +12,10 @@
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Текст поста:"
+        android:text="Новая запись:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ff131215"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/input_text"

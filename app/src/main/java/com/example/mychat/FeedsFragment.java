@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class FeedsFragment extends Fragment {
             public void onClick(View v) {
                 LayoutInflater li = LayoutInflater.from(getContext());
                 View promptsView = li.inflate(R.layout.dialog, null);
-                AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogCustom));
                 mDialogBuilder.setView(promptsView);
                 final EditText userInput = promptsView.findViewById(R.id.input_text);
                 mDialogBuilder

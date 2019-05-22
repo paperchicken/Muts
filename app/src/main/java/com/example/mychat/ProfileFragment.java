@@ -13,11 +13,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mychat.Firebase.FirebaseDatabaseHelper;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 
 public class ProfileFragment extends Fragment {
@@ -64,6 +68,7 @@ public class ProfileFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
         View btn_changeProfilePhoto = view.findViewById(R.id.btn_changeProfilePhoto);
+        View btn_ProfileMessage = view.findViewById(R.id.btn_ProfileMessage);
         circleView = view.findViewById(R.id.circleView);
         TextView profile_name = view.findViewById(R.id.profile_name);
         TextView e_mail = view.findViewById(R.id.e_mail);
@@ -72,15 +77,43 @@ public class ProfileFragment extends Fragment {
         profile_name.setText(profile_name_text);
         e_mail.setText(e_mail_text);
 
+        btn_changeProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText(getContext(),
+                        "Данная функция пока не доступна",
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 100);
+                toast.show();
+            }
+        });
+
+        btn_ProfileMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText(getContext(),
+                        "Данная функция пока не доступна",
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 100);
+                toast.show();
+            }
+        });
+
+
         circleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                Toast toast = Toast.makeText(getContext(),
+                        "Данная функция пока не доступна",
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 100);
+                toast.show();
+                //Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
-                File file = getOutputMediaFile(1);
-                picUri = Uri.fromFile(file); // create
-                i.putExtra(MediaStore.EXTRA_OUTPUT,picUri); // set the image file
-                startActivityForResult(i, CAPTURE_IMAGE);
+                //File file = getOutputMediaFile(1);
+                //picUri = Uri.fromFile(file); // create
+                //i.putExtra(MediaStore.EXTRA_OUTPUT,picUri); // set the image file
+                //startActivityForResult(i, CAPTURE_IMAGE);
             }
         });
     }

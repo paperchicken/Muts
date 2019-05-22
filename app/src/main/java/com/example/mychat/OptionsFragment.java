@@ -7,12 +7,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 
 public class OptionsFragment extends Fragment {
@@ -64,7 +68,12 @@ public class OptionsFragment extends Fragment {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.host, new EditProfile()).commit();
+                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.host, new EditProfile()).commit();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Данная функция пока не доступна",
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 100);
+                toast.show();
             }
         });
     }
