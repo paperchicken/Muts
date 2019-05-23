@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -19,8 +20,13 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
     String chatId;
@@ -45,17 +51,18 @@ public class ChatActivity extends AppCompatActivity {
 
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
-                FirebaseDatabase.getInstance()
+                DatabaseReference db= FirebaseDatabase.getInstance()
                         .getReference()
                         .child("chats")
                         .child(chatId)
-                        .push()
-                        .setValue(new ChatMessage(input.getText().toString().trim(),
-                                FirebaseAuth.getInstance()
-                                        .getCurrentUser()
-                                        .getDisplayName())
-                        );
-
+                        .push();
+                Map<String, Object> map = new HashMap<>();
+                map.put("messageText", input.getText().toString().trim());
+                map.put("messageUser", FirebaseAuth.getInstance()
+                        .getCurrentUser()
+                        .getDisplayName());
+                map.put("messageTime",new Date().getTime());
+                db.setValue(map);
 
                 // Clear the input
                 input.setText("");
@@ -69,7 +76,7 @@ public class ChatActivity extends AppCompatActivity {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("chats")
-                .child("123123");
+                .child(chatId);
         Log.wtf("tag", "displayChatMessages: " +query.getRef().toString());
         FirebaseRecyclerOptions<ChatMessage> options =
                 new FirebaseRecyclerOptions.Builder<ChatMessage>()
@@ -84,25 +91,26 @@ public class ChatActivity extends AppCompatActivity {
                             }
                         })
                         .build();
-        adapter = new FirebaseRecyclerAdapter<ChatMessage, ViewHolder>(options){
-
+        adapter = new FirebaseRecyclerAdapter<ChatMessage, ChatActivity.ViewHolder>(options){
             @NonNull
             @Override
-            public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            public ChatActivity.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View view = LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.message, viewGroup, false);
                 view.setClipToOutline(true);
-                return new ViewHolder(view);
+                return new ChatActivity.ViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ChatMessage model) {
+            protected void onBindViewHolder(@NonNull ChatActivity.ViewHolder holder, int position, @NonNull ChatMessage model) {
                     holder.setText(model.getMessageText());
                     holder.setTime(model.getMessageTime());
                     holder.setUsername(model.getMessageUser());
             }
         };
+
         adapter.startListening();
+        Log.wtf("tag", "displayChatMessages: " + adapter.getSnapshots().toString() );
         recyclerView.setAdapter(adapter);
     }
 
@@ -144,3 +152,4 @@ public class ChatActivity extends AppCompatActivity {
         adapter.stopListening();
     }
 }
+

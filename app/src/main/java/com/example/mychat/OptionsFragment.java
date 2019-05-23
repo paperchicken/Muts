@@ -68,12 +68,12 @@ public class OptionsFragment extends Fragment {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
-                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.host, new EditProfile()).commit();
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Данная функция пока не доступна",
-                        Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM, 0, 100);
-                toast.show();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.host, new EditProfile()).commit();
+                //Toast toast = Toast.makeText(getApplicationContext(),
+                //        "Данная функция пока не доступна",
+                //        Toast.LENGTH_SHORT);
+                //toast.setGravity(Gravity.BOTTOM, 0, 100);
+                //toast.show();
             }
         });
     }

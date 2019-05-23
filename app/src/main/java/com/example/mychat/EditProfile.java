@@ -54,12 +54,12 @@ public class EditProfile extends Fragment {
         change_password = view.findViewById(R.id.change_password);
         Button btn_save_changes = view.findViewById(R.id.btn_save_changes);
 
-        btn_save_changes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeEmailAddress();
-            }
-        });
+//        btn_save_changes.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+ //               changeEmailAddress();
+   //         }
+     //   });
     }
 
     private void changeEmailAddress() {

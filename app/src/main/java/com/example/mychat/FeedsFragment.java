@@ -1,5 +1,6 @@
 package com.example.mychat;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -52,12 +53,13 @@ public class FeedsFragment extends Fragment {
         addFeedButton = view.findViewById(R.id.btn_add_feed);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerViewFeed.setLayoutManager(linearLayoutManager);
+
         addFeedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutInflater li = LayoutInflater.from(getContext());
                 View promptsView = li.inflate(R.layout.dialog, null);
-                AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogCustom));
+                @SuppressLint("ResourceType") AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.layout.dialog));
                 mDialogBuilder.setView(promptsView);
                 final EditText userInput = promptsView.findViewById(R.id.input_text);
                 mDialogBuilder
