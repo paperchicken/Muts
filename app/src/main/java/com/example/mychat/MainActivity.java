@@ -1,5 +1,6 @@
 package com.example.mychat;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -18,6 +20,16 @@ public class MainActivity extends AppCompatActivity {
     private static final int SIGN_IN_REQUEST_CODE = 5;
     private static final String TAG = "WTF";
     Toolbar toolbar;
+    String chatId = "общий чат";
+    Uri imageUri;
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -57,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setSelectedItemId(R.id.navigation_chat);
+        navigation.setSelectedItemId(R.id.navigation_feeds);
+        toolbar.setTitle("Лента");
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             // Start sign in/sign up activity
@@ -84,6 +97,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void commonChat(View v){
+        setChatId("общий чат");
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.host, new ChatListFragment())
+                .commit();
+
+    }
+
 
     private boolean loadFragment(Fragment fragment) {
         //switching fragment
@@ -98,4 +120,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

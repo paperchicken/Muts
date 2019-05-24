@@ -90,6 +90,7 @@ public class ProfileFragment extends Fragment {
         View btn_changeProfilePhoto = view.findViewById(R.id.btn_changeProfilePhoto);
         View btn_ProfileMessage = view.findViewById(R.id.btn_ProfileMessage);
         circleView = view.findViewById(R.id.circleView);
+        if ( ((MainActivity) getActivity()).imageUri != null) circleView.setImageURI(((MainActivity) getActivity()).imageUri);
         TextView profile_name = view.findViewById(R.id.profile_name);
         TextView e_mail = view.findViewById(R.id.e_mail);
         String profile_name_text = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
@@ -127,12 +128,6 @@ public class ProfileFragment extends Fragment {
         circleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(getContext(),
-                        "Данная функция пока не доступна",
-                        Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM, 0, 100);
-                toast.show();
-
                 Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
                 gallery.setType("image/*");
                 startActivityForResult(gallery, RESULT_LOAD_IMAGE);
@@ -149,6 +144,7 @@ public class ProfileFragment extends Fragment {
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             Uri imageUri = data.getData();
             circleView.setImageURI(imageUri);
+            ((MainActivity) getActivity()).imageUri = imageUri;
         }
 
     }

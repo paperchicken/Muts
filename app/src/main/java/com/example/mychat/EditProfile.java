@@ -4,6 +4,7 @@ package com.example.mychat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,9 +27,9 @@ public class EditProfile extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseUser fbUser;
-    private TextView change_name;
-    private TextView change_email;
-    private TextView change_password;
+    private TextInputLayout change_name;
+    private TextInputLayout change_email;
+    private TextInputLayout change_password;
     //Button btn_save_changes;
 
     public EditProfile() {
@@ -38,7 +39,7 @@ public class EditProfile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.edit_profile, container, false);
         return view;
     }
 
@@ -54,17 +55,17 @@ public class EditProfile extends Fragment {
         change_password = view.findViewById(R.id.change_password);
         Button btn_save_changes = view.findViewById(R.id.btn_save_changes);
 
-//        btn_save_changes.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
- //               changeEmailAddress();
-   //         }
-     //   });
+        btn_save_changes.setOnClickListener(new View.OnClickListener() {
+         @Override
+            public void onClick(View v) {
+                changeEmailAddress();
+            }
+        });
     }
 
     private void changeEmailAddress() {
 
-        String newEmail = change_email.getText().toString();
+        String newEmail = change_email.getEditText().getText().toString();
 
         if (TextUtils.isEmpty(newEmail)) {
 

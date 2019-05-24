@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class ChatListFragment extends Fragment {
     private FloatingActionButton addChatButton;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseRecyclerAdapter adapter;
+    EditText et;
 
     @Nullable
     @Override
@@ -48,18 +50,19 @@ public class ChatListFragment extends Fragment {
         addChatButton = view.findViewById(R.id.addChatButton);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        et = view.findViewById(R.id.id);
         addChatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("chatList")
-                        .child(FirebaseAuth
-                                .getInstance()
-                                .getCurrentUser()
-                                .getUid()).push();
+                        .child(((MainActivity) getActivity()).getChatId())
+                        .push();
+
                 Map<String, Object> map = new HashMap<>();
                 map.put("chatId", databaseReference.getKey());
-                map.put("chatName", "User");
-                map.put("lastMessage", "Last message");
+                map.put("chatName", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                map.put("lastMessage", et.getText().toString());
+                et.setText("");
 
                 databaseReference.setValue(map);
             }
@@ -78,10 +81,7 @@ public class ChatListFragment extends Fragment {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("chatList")
-                .child(FirebaseAuth
-                        .getInstance()
-                        .getCurrentUser()
-                        .getUid());
+                .child(((MainActivity) getActivity()).getChatId());
         FirebaseRecyclerOptions<Model> options =
                 new FirebaseRecyclerOptions.Builder<Model>()
                         .setQuery(query, new SnapshotParser<Model>() {
@@ -112,12 +112,7 @@ public class ChatListFragment extends Fragment {
                 holder.setCharId(model.getmChatId());
                 holder.setLastChatMessage(model.getmLastMess());
 
-                holder.root.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity((new Intent(getContext(), ChatActivity.class).putExtra("chatId", model.mChatId)));
-                    }
-                });
+
 
 
             }

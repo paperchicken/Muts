@@ -3,6 +3,7 @@ package com.example.mychat;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -117,9 +118,15 @@ public class FeedsFragment extends Fragment {
                         .build();
         adapter = new FirebaseRecyclerAdapter<Post, FeedsFragment.ViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Post post) {
+            protected void onBindViewHolder(@NonNull ViewHolder holder, final int position, @NonNull final Post post) {
                 holder.feed_userName.setText(post.getpUserName());
                 holder.feed_text.setText(post.getpText());
+                holder.feed_root.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ((MainActivity) getActivity()).setChatId(post.getpText() + post.pUserName);
+                    }
+                });
             }
 
             @NonNull

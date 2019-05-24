@@ -29,6 +29,10 @@ public class OptionsFragment extends Fragment {
     FragmentManager myFragmentManager;
     EditProfile editProfile;
 
+    public com.example.mychat.EditProfile getEditProfile() {
+        return editProfile;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,7 +72,10 @@ public class OptionsFragment extends Fragment {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.host, new EditProfile()).commit();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.host, (Fragment) new EditProfile()).commit();
+
+                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.host, new EditProfile()).commit();
                 //Toast toast = Toast.makeText(getApplicationContext(),
                 //        "Данная функция пока не доступна",
                 //        Toast.LENGTH_SHORT);
