@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:160567603150:android:b644fbe578b49976",
         "android_client_info": {
-          "package_name": "com.example.mychat"
+          "package_name": "com.jtmoc.muts"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "160567603150-llcsv7a0i5ob3q5acr91nak5e3um0mb0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.mychat",
+            "package_name": "com.jtmoc.muts",
             "certificate_hash": "61469f41ade342b1145250b97b36680ce65c5ea6"
           }
         },

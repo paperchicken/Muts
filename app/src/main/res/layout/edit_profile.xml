@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#fffafafa"
     android:orientation="vertical"
-    tools:context="com.example.mychat.EditProfile">
+    tools:context="com.jtmoc.muts.EditProfile">
 
     <LinearLayout
         android:id="@+id/linearLayout2"

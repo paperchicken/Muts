@@ -5,7 +5,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.mychat"
+        applicationId "com.jtmoc.muts"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
