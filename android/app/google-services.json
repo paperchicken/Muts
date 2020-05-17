@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "308379069514",
+    "firebase_url": "https://muts-project.firebaseio.com",
+    "project_id": "muts-project",
+    "storage_bucket": "muts-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308379069514:android:bbb4eb1be414dd27e54ab3",
+        "android_client_info": {
+          "package_name": "com.punk.muts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308379069514-nmijls6vbn1t7950d28is3l387pc4m0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd0LzOLQJ0Wed7RWDpVQPbSiDz47Pl3xA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308379069514-nmijls6vbn1t7950d28is3l387pc4m0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
