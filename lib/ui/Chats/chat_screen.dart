@@ -13,35 +13,45 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:muts/ui/Profile/other_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatScreen extends StatefulWidget {
   final String peerId;
   final String peerAvatar;
   final String peerNickname;
+  final String peerAboutMe;
 
-  ChatScreen(
-      {Key key,
-      @required this.peerId,
-      @required this.peerAvatar,
-      @required this.peerNickname})
-      : super(key: key);
+  ChatScreen({
+    Key key,
+    @required this.peerId,
+    @required this.peerAvatar,
+    @required this.peerNickname,
+    @required this.peerAboutMe,
+  }) : super(key: key);
 
   @override
   State createState() => ChatScreenState(
-      peerId: peerId, peerAvatar: peerAvatar, peerNickname: peerNickname);
+        peerId: peerId,
+        peerAvatar: peerAvatar,
+        peerNickname: peerNickname,
+        peerAboutMe: peerAboutMe,
+      );
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  ChatScreenState(
-      {Key key,
-      @required this.peerId,
-      @required this.peerAvatar,
-      @required this.peerNickname});
+  ChatScreenState({
+    Key key,
+    @required this.peerId,
+    @required this.peerAvatar,
+    @required this.peerNickname,
+    @required this.peerAboutMe,
+  });
 
   String peerId;
   String peerAvatar;
   String peerNickname;
+  String peerAboutMe;
   String id;
 
   var listMessage;
@@ -92,7 +102,6 @@ class ChatScreenState extends State<ChatScreen> {
         .collection('users')
         .document(id)
         .updateData({'chattingWith': peerId});
-
     setState(() {});
   }
 
@@ -456,72 +465,76 @@ class ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      child: SafeArea(
-        child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: <Widget>[
-            SliverAppBar(
-              elevation: 0,
-              backgroundColor: Theme.of(context).primaryColor,
-              title: Row(
-                children: <Widget>[
-                  Material(
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) => Container(
-                        child: CupertinoActivityIndicator(),
-                        width: 35.0,
-                        height: 35.0,
-                        padding: EdgeInsets.all(10.0),
-                      ),
-                      imageUrl: peerAvatar,
-                      width: 35.0,
-                      height: 35.0,
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(18.0),
-                    ),
-                    clipBehavior: Clip.hardEdge,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    peerNickname,
-                    style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              leading: IconButton(
-                icon: Icon(LineAwesomeIcons.angle_left),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                color: Colors.white,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                height: 620,
-                color: Theme.of(context).primaryColor,
-                child: SafeArea(
-                  child: Stack(
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          buildListMessage(),
-                          buildInput(),
-                        ],
-                      ),
-                      buildLoading()
-                    ],
-                  ),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Row(
+          children: <Widget>[
+            Material(
+              child: CachedNetworkImage(
+                placeholder: (context, url) => Container(
+                  child: CupertinoActivityIndicator(),
+                  width: 35.0,
+                  height: 35.0,
+                  padding: EdgeInsets.all(10.0),
                 ),
+                imageUrl: peerAvatar,
+                width: 35.0,
+                height: 35.0,
+                fit: BoxFit.cover,
               ),
-            )
+              borderRadius: BorderRadius.all(
+                Radius.circular(18.0),
+              ),
+              clipBehavior: Clip.hardEdge,
+            ),
+            SizedBox(width: 10),
+            Text(
+              peerNickname,
+              style: GoogleFonts.montserrat(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(LineAwesomeIcons.info_circle),
+            onPressed: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => OtherProfileScreen(
+                      peerAvatar: peerAvatar,
+                      peerId: peerId,
+                      peerAboutMe: peerAboutMe,
+                      peerNickname: peerNickname),
+                ),
+              );
+            },
+          ),
+        ],
+        // leading: IconButton(
+        //   icon: Icon(LineAwesomeIcons.angle_left),
+        //   onPressed: () {
+        //     Navigator.pop(context, groupChatId);
+        //   },
+        //   color: Colors.white,
+        // ),
+      ),
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                buildListMessage(),
+                buildInput(),
+              ],
+            ),
+            buildLoading()
           ],
         ),
       ),

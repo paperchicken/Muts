@@ -91,7 +91,8 @@ class SingInScreenState extends State<SingInScreen> {
           'photoUrl': firebaseUser.photoUrl,
           'id': firebaseUser.uid,
           'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-          'chattingWith': null
+          'chattingWith': null,
+          'aboutMe' : '...'
         });
 
         // Write data to local

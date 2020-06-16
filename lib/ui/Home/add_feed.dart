@@ -46,9 +46,11 @@ class AddFeedState extends State<AddFeed> {
     if (content.trim() != '') {
       textEditingController.clear();
 
+      String time = DateTime.now().millisecondsSinceEpoch.toString();
+
       var documentReference = Firestore.instance
           .collection('feed')
-          .document(DateTime.now().millisecondsSinceEpoch.toString());
+          .document(time);
 
       Firestore.instance.runTransaction((transaction) async {
         await transaction.set(
@@ -57,13 +59,13 @@ class AddFeedState extends State<AddFeed> {
             'id': id,
             'nickname': nickname,
             'photoUrl': photoUrl,
-            'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
+            'timestamp': time,
             'content': content,
           },
         );
       });
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: "POSTED");
+      Fluttertoast.showToast(msg: "Posted");
     } else {
       Fluttertoast.showToast(msg: 'Please enter message');
     }

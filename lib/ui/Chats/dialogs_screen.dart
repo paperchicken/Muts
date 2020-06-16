@@ -18,12 +18,15 @@ class _DialogScreenState extends State<DialogScreen> {
   final String currentUserId;
   SharedPreferences prefs;
   String id = '';
+  String groupChatId;
+  var listMessage;
 
-@override
+  @override
   void initState() {
     super.initState();
     readLocal();
   }
+
   void readLocal() async {
     prefs = await SharedPreferences.getInstance();
     id = prefs.getString('id') ?? '';
@@ -109,6 +112,7 @@ class _DialogScreenState extends State<DialogScreen> {
               builder: (context) => ChatScreen(
                 peerNickname: document['nickname'],
                 peerId: document.documentID,
+                peerAboutMe: document['aboutMe'],
                 peerAvatar: document['photoUrl'],
               ),
             ),

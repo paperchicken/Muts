@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:muts/ui/Chats/chat_screen.dart';
 import 'package:muts/ui/Home/add_feed.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,7 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildItem(int index, DocumentSnapshot document) {
     return SafeArea(
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+        },
         child: Align(
           alignment: Alignment.topCenter,
           child: Padding(
@@ -49,53 +51,200 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Theme.of(context).accentColor,
               elevation: 0,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.only(top: 16, left: 16, bottom: 16, right: 12),
                 child: Column(
                   children: <Widget>[
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Material(
-                          child: CachedNetworkImage(
-                            placeholder: (context, url) => Container(
-                              child: CupertinoActivityIndicator(),
-                              width: 40.0,
-                              height: 40.0,
-                              padding: EdgeInsets.all(20.0),
-                            ),
-                            imageUrl: document['photoUrl'],
-                            width: 40.0,
-                            height: 40.0,
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(45.0)),
-                          clipBehavior: Clip.hardEdge,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              document['nickname'],
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              DateFormat('dd MMM kk:mm').format(
-                                  DateTime.fromMillisecondsSinceEpoch(
-                                      int.parse(document['timestamp']))),
-                              style: GoogleFonts.montserrat(
-                                color: Colors.blueGrey,
-                                fontSize: 12.0,
+                            Material(
+                              child: CachedNetworkImage(
+                                placeholder: (context, url) => Container(
+                                  child: CupertinoActivityIndicator(),
+                                  width: 40.0,
+                                  height: 40.0,
+                                  padding: EdgeInsets.all(20.0),
+                                ),
+                                imageUrl: document['photoUrl'],
+                                width: 40.0,
+                                height: 40.0,
+                                fit: BoxFit.cover,
                               ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(45.0)),
+                              clipBehavior: Clip.hardEdge,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  document['nickname'],
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  DateFormat('dd MMM kk:mm').format(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          int.parse(document['timestamp']))),
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.blueGrey,
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.more_vert, color: Colors.white),
+                          onPressed: () {
+                            if (id != document['id']) {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext bc) {
+                                  return Container(
+                                    color: Color(0xff0062F4),
+                                    child: Wrap(
+                                      children: <Widget>[
+                                        ListTile(
+                                          title: Text(
+                                            'Go to dialog',
+                                            style: GoogleFonts.montserrat(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                            Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    ChatScreen(
+                                                  peerNickname:
+                                                      document['nickname'],
+                                                  peerId: document['id'],
+                                                  peerAboutMe: document['aboutMe'],
+                                                  peerAvatar:
+                                                      document['photoUrl'],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            } else {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext bc) {
+                                  return Container(
+                                    color: Color(0xff0062F4),
+                                    child: Wrap(
+                                      children: <Widget>[
+                                        ListTile(
+                                          title: Text(
+                                            'Delete post',
+                                            style: GoogleFonts.montserrat(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            showDialog<void>(
+                                              context: context,
+                                              barrierDismissible:
+                                                  false, // user must tap button!
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor:
+                                                      Color(0xff0062F4),
+                                                  title: Text(
+                                                    'Are you sure?',
+                                                    style:
+                                                        GoogleFonts.montserrat(
+                                                            color: Colors.white,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                  ),
+                                                  actions: <Widget>[
+                                                    FlatButton(
+                                                      child: Text(
+                                                        'NO',
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                    FlatButton(
+                                                      child: Text(
+                                                        'YES',
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                      ),
+                                                      onPressed: () async {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        await Firestore.instance
+                                                            .runTransaction(
+                                                                (Transaction
+                                                                    myTransaction) async {
+                                                          await myTransaction
+                                                              .delete(
+                                                            Firestore.instance
+                                                                .collection(
+                                                                    'feed')
+                                                                .document(document['timestamp']),
+                                                          );
+                                                        });
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          },
                         ),
                       ],
                     ),
