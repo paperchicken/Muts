@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:morpheus/morpheus.dart';
 import 'package:muts/ui/Profile/edit_description.dart';
 import 'package:muts/ui/Profile/edit_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,7 +103,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             setState(() {
               isLoading = false;
             });
-            Fluttertoast.showToast(msg: "SAVED");
+            Fluttertoast.showToast(msg: "Changes saved");
           }).catchError((err) {
             setState(() {
               isLoading = false;
@@ -274,7 +275,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            CupertinoPageRoute(
+                            MorpheusPageRoute(
                               builder: (context) => EditNameScreen(),
                             ),
                           );
@@ -350,7 +351,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            CupertinoPageRoute(
+                            MorpheusPageRoute(
                               builder: (context) => EditDesriptionScreen(),
                             ),
                           );

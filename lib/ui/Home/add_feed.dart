@@ -58,6 +58,7 @@ class AddFeedState extends State<AddFeed> {
           {
             'id': id,
             'nickname': nickname,
+            'user': Firestore.instance.collection("users").document((await FirebaseAuth.instance.currentUser()).uid),
             'photoUrl': photoUrl,
             'timestamp': time,
             'content': content,

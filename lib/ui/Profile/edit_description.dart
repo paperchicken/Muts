@@ -55,7 +55,7 @@ class _EditDesriptionScreenState extends State<EditDesriptionScreen> {
         isLoading = false;
       });
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: "SAVED");
+      Fluttertoast.showToast(msg: "Changes saved");
     }).catchError((err) {
       setState(() {
         isLoading = false;

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:morpheus/morpheus.dart';
 import 'package:muts/ui/Chats/chat_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -108,7 +109,7 @@ class _DialogScreenState extends State<DialogScreen> {
         onTap: () {
           Navigator.push(
             context,
-            CupertinoPageRoute(
+            MorpheusPageRoute(
               builder: (context) => ChatScreen(
                 peerNickname: document['nickname'],
                 peerId: document.documentID,

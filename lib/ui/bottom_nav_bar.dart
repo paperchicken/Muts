@@ -1,7 +1,10 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:morpheus/morpheus.dart';
+import 'package:muts/ui/Chats/chat_screen.dart';
 import 'package:muts/ui/Chats/dialogs_screen.dart';
 import 'package:muts/ui/Profile/profile_screen.dart';
 import 'package:muts/ui/Home/home_screen.dart';
@@ -42,36 +45,46 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return true;
   }
 
+  final List<Widget> _screens = [
+    Scaffold(body: HomeScreen()),
+    Scaffold(body: DialogScreen()),
+    Scaffold(body: ProfileScreen()),
+  ];
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: openDialog,
-      child: CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          inactiveColor: Colors.grey[800],
-          activeColor: Colors.white,
+      child: Scaffold(
+        body: MorpheusTabView(child: _screens[_currentIndex]),
+        bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey[800],
           backgroundColor: Theme.of(context).primaryColor,
+          showUnselectedLabels: false,
+          currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(LineAwesomeIcons.home, size: 28)),
+              icon: Icon(LineAwesomeIcons.home, size: 28),
+              title: Text('Home'),
+            ),
             BottomNavigationBarItem(
-                icon: Icon(LineAwesomeIcons.comments, size: 28)),
+              icon: Icon(LineAwesomeIcons.comments, size: 28),
+              title: Text('Chats'),
+            ),
             BottomNavigationBarItem(
-                icon: Icon(LineAwesomeIcons.user, size: 28)),
+              icon: Icon(LineAwesomeIcons.user, size: 28),
+              title: Text('Profile'),
+            ),
           ],
+          onTap: (index) {
+            if (index != _currentIndex) {
+              setState(() => _currentIndex = index);
+            }
+          },
         ),
-        tabBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return HomeScreen();
-            case 1:
-              return DialogScreen(currentUserId: currentUserId);
-            case 2:
-              return ProfileScreen();
-            default:
-              return HomeScreen();
-          }
-        },
       ),
     );
   }

@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:morpheus/morpheus.dart';
 import 'package:muts/ui/Chats/full_photo.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -240,7 +241,7 @@ class ChatScreenState extends State<ChatScreen> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                CupertinoPageRoute(
+                                MorpheusPageRoute(
                                   builder: (context) =>
                                       FullPhoto(url: document['content']),
                                 ),
@@ -500,30 +501,30 @@ class ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(LineAwesomeIcons.info_circle),
-            onPressed: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => OtherProfileScreen(
-                      peerAvatar: peerAvatar,
-                      peerId: peerId,
-                      peerAboutMe: peerAboutMe,
-                      peerNickname: peerNickname),
-                ),
-              );
-            },
-          ),
-        ],
-        // leading: IconButton(
-        //   icon: Icon(LineAwesomeIcons.angle_left),
-        //   onPressed: () {
-        //     Navigator.pop(context, groupChatId);
-        //   },
-        //   color: Colors.white,
-        // ),
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(LineAwesomeIcons.info_circle),
+        //     onPressed: () {
+        //       Navigator.push(
+        //         context,
+        //         MorpheusPageRoute(
+        //           builder: (context) => OtherProfileScreen(
+        //               peerAvatar: peerAvatar,
+        //               peerId: peerId,
+        //               peerAboutMe: peerAboutMe,
+        //               peerNickname: peerNickname),
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ],
+        leading: IconButton(
+          icon: Icon(LineAwesomeIcons.angle_left),
+          onPressed: () {
+            Navigator.pop(context, groupChatId);
+          },
+          color: Colors.white,
+        ),
       ),
       body: SafeArea(
         child: Stack(

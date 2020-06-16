@@ -56,7 +56,7 @@ class _EditNameScreenState extends State<EditNameScreen> {
         isLoading = false;
       });
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: "SAVED");
+      Fluttertoast.showToast(msg: "Changes saved");
     }).catchError((err) {
       setState(() {
         isLoading = false;

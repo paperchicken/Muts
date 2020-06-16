@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:morpheus/morpheus.dart';
 import 'package:muts/ui/Chats/loading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -43,7 +44,7 @@ class SingInScreenState extends State<SingInScreen> {
     if (isLoggedIn) {
       Navigator.push(
         context,
-        CupertinoPageRoute(
+        MorpheusPageRoute(
           builder: (context) => BottomNavBar(
             currentUserId: prefs.getString('id'),
           ),
@@ -114,7 +115,7 @@ class SingInScreenState extends State<SingInScreen> {
 
       Navigator.push(
         context,
-        CupertinoPageRoute(
+        MorpheusPageRoute(
           builder: (context) => BottomNavBar(
             currentUserId: prefs.getString('id'),
           ),

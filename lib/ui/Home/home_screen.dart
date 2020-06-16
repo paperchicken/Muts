@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   _HomeScreenState({Key key});
+
   final ScrollController listScrollController = new ScrollController();
 
   String id;
@@ -39,10 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildItem(int index, DocumentSnapshot document) {
+    String s = document['nickname'];
+
     return SafeArea(
       child: GestureDetector(
-        onTap: () {
-        },
+        onTap: () {},
         child: Align(
           alignment: Alignment.topCenter,
           child: Padding(
@@ -51,7 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Theme.of(context).accentColor,
               elevation: 0,
               child: Padding(
-                padding: const EdgeInsets.only(top: 16, left: 16, bottom: 16, right: 12),
+                padding: const EdgeInsets.only(
+                    top: 16, left: 16, bottom: 16, right: 12),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -63,18 +66,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Material(
-                              child: CachedNetworkImage(
-                                placeholder: (context, url) => Container(
-                                  child: CupertinoActivityIndicator(),
-                                  width: 40.0,
-                                  height: 40.0,
-                                  padding: EdgeInsets.all(20.0),
-                                ),
-                                imageUrl: document['photoUrl'],
-                                width: 40.0,
-                                height: 40.0,
-                                fit: BoxFit.cover,
-                              ),
+                              child: StreamBuilder(
+                                  stream: document['user'].snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<dynamic> snapshot) {
+                                    return CachedNetworkImage(
+                                      placeholder: (context, url) => Container(
+                                        child: CupertinoActivityIndicator(),
+                                        width: 40.0,
+                                        height: 40.0,
+                                        padding: EdgeInsets.all(20.0),
+                                      ),
+                                      imageUrl: snapshot.data['photoUrl'],
+                                      width: 40.0,
+                                      height: 40.0,
+                                      fit: BoxFit.cover,
+                                    );
+                                  }),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(45.0)),
                               clipBehavior: Clip.hardEdge,
@@ -86,13 +94,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  document['nickname'],
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
-                                ),
+                                StreamBuilder(
+                                    stream: document['user'].snapshots(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<dynamic> snapshot) {
+                                      return Text(
+                                        snapshot.data['nickname'],
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white),
+                                      );
+                                    }),
                                 Text(
                                   DateFormat('dd MMM kk:mm').format(
                                       DateTime.fromMillisecondsSinceEpoch(
@@ -135,7 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   peerNickname:
                                                       document['nickname'],
                                                   peerId: document['id'],
-                                                  peerAboutMe: document['aboutMe'],
+                                                  peerAboutMe:
+                                                      document['aboutMe'],
                                                   peerAvatar:
                                                       document['photoUrl'],
                                                 ),
@@ -227,7 +241,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             Firestore.instance
                                                                 .collection(
                                                                     'feed')
-                                                                .document(document['timestamp']),
+                                                                .document(document[
+                                                                    'timestamp']),
                                                           );
                                                         });
                                                       },
