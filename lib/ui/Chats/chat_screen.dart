@@ -501,23 +501,23 @@ class ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: Icon(LineAwesomeIcons.info_circle),
-        //     onPressed: () {
-        //       Navigator.push(
-        //         context,
-        //         MorpheusPageRoute(
-        //           builder: (context) => OtherProfileScreen(
-        //               peerAvatar: peerAvatar,
-        //               peerId: peerId,
-        //               peerAboutMe: peerAboutMe,
-        //               peerNickname: peerNickname),
-        //         ),
-        //       );
-        //     },
-        //   ),
-        // ],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(LineAwesomeIcons.info_circle),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MorpheusPageRoute(
+                  builder: (context) => OtherProfileScreen(
+                      peerAvatar: peerAvatar,
+                      peerId: peerId,
+                      peerAboutMe: peerAboutMe,
+                      peerNickname: peerNickname),
+                ),
+              );
+            },
+          ),
+        ],
         leading: IconButton(
           icon: Icon(LineAwesomeIcons.angle_left),
           onPressed: () {

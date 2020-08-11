@@ -41,7 +41,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     });
 
     Navigator.of(context).pushAndRemoveUntil(
-        CupertinoPageRoute(builder: (context) => App()),
+        MorpheusPageRoute(builder: (context) => App()),
         (Route<dynamic> route) => false);
   }
 

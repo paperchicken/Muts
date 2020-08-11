@@ -40,129 +40,89 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildItem(int index, DocumentSnapshot document) {
-    String s = document['nickname'];
-
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () {},
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
-            child: Card(
-              color: Theme.of(context).accentColor,
-              elevation: 0,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 16, left: 16, bottom: 16, right: 12),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Material(
-                              child: StreamBuilder(
-                                  stream: document['user'].snapshots(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<dynamic> snapshot) {
-                                    return CachedNetworkImage(
-                                      placeholder: (context, url) => Container(
-                                        child: CupertinoActivityIndicator(),
-                                        width: 40.0,
-                                        height: 40.0,
-                                        padding: EdgeInsets.all(20.0),
-                                      ),
-                                      imageUrl: snapshot.data['photoUrl'],
-                                      width: 40.0,
-                                      height: 40.0,
-                                      fit: BoxFit.cover,
-                                    );
-                                  }),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(45.0)),
-                              clipBehavior: Clip.hardEdge,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                StreamBuilder(
+    if (id == document['id']) {
+      return SafeArea(
+        child: GestureDetector(
+          onTap: () {},
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
+              child: Card(
+                color: Theme.of(context).accentColor,
+                elevation: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 16, left: 16, bottom: 16, right: 12),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Material(
+                                child: StreamBuilder(
                                     stream: document['user'].snapshots(),
                                     builder: (BuildContext context,
                                         AsyncSnapshot<dynamic> snapshot) {
-                                      return Text(
-                                        snapshot.data['nickname'],
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white),
+                                      return CachedNetworkImage(
+                                        placeholder: (context, url) =>
+                                            Container(
+                                          child: CupertinoActivityIndicator(),
+                                          width: 40.0,
+                                          height: 40.0,
+                                          padding: EdgeInsets.all(20.0),
+                                        ),
+                                        imageUrl: snapshot.data['photoUrl'],
+                                        width: 40.0,
+                                        height: 40.0,
+                                        fit: BoxFit.cover,
                                       );
                                     }),
-                                Text(
-                                  DateFormat('dd MMM kk:mm').format(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          int.parse(document['timestamp']))),
-                                  style: GoogleFonts.montserrat(
-                                    color: Colors.blueGrey,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.more_vert, color: Colors.white),
-                          onPressed: () {
-                            if (id != document['id']) {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext bc) {
-                                  return Container(
-                                    color: Color(0xff0062F4),
-                                    child: Wrap(
-                                      children: <Widget>[
-                                        ListTile(
-                                          title: Text(
-                                            'Go to dialog',
-                                            style: GoogleFonts.montserrat(
-                                              color: Colors.white,
-                                              fontSize: 18.0,
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            Navigator.of(context).pop();
-                                            Navigator.push(
-                                              context,
-                                              CupertinoPageRoute(
-                                                builder: (context) =>
-                                                    ChatScreen(
-                                                  peerNickname:
-                                                      document['nickname'],
-                                                  peerId: document['id'],
-                                                  peerAboutMe:
-                                                      document['aboutMe'],
-                                                  peerAvatar:
-                                                      document['photoUrl'],
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(45.0)),
+                                clipBehavior: Clip.hardEdge,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  StreamBuilder(
+                                      stream: document['user'].snapshots(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<dynamic> snapshot) {
+                                        return Text(
+                                          snapshot.data['nickname'],
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white),
+                                        );
+                                      }),
+                                  Text(
+                                    DateFormat('dd MMM kk:mm').format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                            int.parse(document['timestamp']))),
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.blueGrey,
+                                      fontSize: 12.0,
                                     ),
-                                  );
-                                },
-                              );
-                            } else {
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            icon:
+                                Icon(Icons.more_vert, color: Colors.grey[800]),
+                            onPressed: () {
                               showModalBottomSheet(
                                 context: context,
                                 builder: (BuildContext bc) {
@@ -258,35 +218,140 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                               );
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        document['content'],
-                        style: GoogleFonts.montserrat(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white),
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          document['content'],
+                          style: GoogleFonts.montserrat(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return SafeArea(
+        child: GestureDetector(
+          onTap: () {},
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
+              child: Card(
+                color: Theme.of(context).accentColor,
+                elevation: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 16, left: 16, bottom: 16, right: 12),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Material(
+                                child: StreamBuilder(
+                                    stream: document['user'].snapshots(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<dynamic> snapshot) {
+                                      return CachedNetworkImage(
+                                        placeholder: (context, url) =>
+                                            Container(
+                                          child: CupertinoActivityIndicator(),
+                                          width: 40.0,
+                                          height: 40.0,
+                                          padding: EdgeInsets.all(20.0),
+                                        ),
+                                        imageUrl: snapshot.data['photoUrl'],
+                                        width: 40.0,
+                                        height: 40.0,
+                                        fit: BoxFit.cover,
+                                      );
+                                    }),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(45.0)),
+                                clipBehavior: Clip.hardEdge,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  StreamBuilder(
+                                      stream: document['user'].snapshots(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<dynamic> snapshot) {
+                                        return Text(
+                                          snapshot.data['nickname'],
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white),
+                                        );
+                                      }),
+                                  Text(
+                                    DateFormat('dd MMM kk:mm').format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                            int.parse(document['timestamp']))),
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.blueGrey,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          document['content'],
+                          style: GoogleFonts.montserrat(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
   }
 
   @override
